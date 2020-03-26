@@ -1,0 +1,31 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - 8084:80
+    restart: always
+    volumes:
+      - .:/var/www/html
+    links:
+      - pg
+
+  pg:
+    image: postgres:12.1
+    ports:
+      - 33065:3306
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=tolkachev
+      - POSTGRES_USER=sergei
+      - POSTGRES_DB=hw3
+
+  adminer:
+    image: adminer:4.7.5
+    ports:
+      - 8086:8080
+    restart: always
+    environment:
+      - ADMINER_DEFAULT_SERVER=pg
+
+
